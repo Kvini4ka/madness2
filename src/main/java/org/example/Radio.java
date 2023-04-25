@@ -1,7 +1,7 @@
 package org.example;
 
 public class Radio {
-    private int currentStation;
+    private int currentStation = 10;
     private int currentVolume;
     private int minStation = 0;
     private int maxStation = 9;
@@ -10,16 +10,26 @@ public class Radio {
     private int maxVolume = 100;
 
 
+    public Radio() {
+    }
+
+    public Radio(int currentStation) {
+        this.currentStation = currentStation;
+        maxStation = currentStation - 1;
+    }
+
+
+
     public int getCurrentStation() {
         return currentStation;
     }
 
     public void setCurrentStation(int currentStation) {
         if (currentStation > maxStation) {
-            return;
+            currentStation = minStation;
         }
         if (currentStation < minStation) {
-            return;
+            currentStation = maxStation;
         }
 
         // currentStation = newCurrentStation;
@@ -28,7 +38,7 @@ public class Radio {
 
 
     public void nextStation() {
-        if (maxStation <= currentStation) {
+        if (currentStation >= maxStation) {
             setCurrentStation(minStation);
         } else {
             setCurrentStation(currentStation + 1);
@@ -56,12 +66,27 @@ public class Radio {
         }
         this.currentVolume = currentVolume;
     }
+    public int getMaxVolume() {
+        return maxVolume;
+    }
+
+    public void pressVolumeUp() {
+        setCurrentVolume(currentVolume + 1);
+
+    }
+
+    public void pressVolumeDown() {
+        setCurrentVolume(currentVolume - 1);
+    }
+
+
+/*
 
 
     public void increaseVolume() {
         if (currentVolume < maxVolume) {
             currentVolume++;
-        }
+
     }
 
     public void decreaseVolume() {
@@ -69,5 +94,6 @@ public class Radio {
             currentVolume--;
         }
     }
+*/
 
 }

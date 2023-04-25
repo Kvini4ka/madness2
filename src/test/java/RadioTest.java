@@ -5,11 +5,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RadioTest {
 
-    Radio device = new Radio();
+    Radio device = new Radio(10);
 
     @Test
     void shouldChangeStation() {
-        assertEquals(0, device.getCurrentStation());
         device.setCurrentStation(5);
         assertEquals(5, device.getCurrentStation());
     }
@@ -17,7 +16,7 @@ class RadioTest {
     @Test
     void shouldSetStationUnderMinStation() {
         device.setCurrentStation(-1);
-        assertEquals(0, device.getCurrentStation());
+        assertEquals(9, device.getCurrentStation());
     }
 
     @Test
@@ -61,12 +60,6 @@ class RadioTest {
         assertEquals(9, device.getCurrentStation());
     }
 
-    @Test
-    void shouldBelowMinStation() {
-        device.setCurrentStation(-1);
-        device.previousStation();
-        assertEquals(9, device.getCurrentStation());
-    }
 
     @Test
     void shouldChangeVolume() {
@@ -74,8 +67,34 @@ class RadioTest {
         device.setCurrentVolume(5);
         assertEquals(5, device.getCurrentVolume());
     }
+    @Test
+    void shouldOverMaxVolume() {
+        device.setCurrentVolume(101);
+        assertEquals(100, device.getMaxVolume());
+    }
 
     @Test
+    void shouldSetStationUnderMinVolume() {
+        device.setCurrentVolume(-1);
+        assertEquals(0, device.getCurrentVolume());
+    }
+
+    @Test
+    void shouldPressVolumeUp(){
+        device.setCurrentVolume(10);
+        device.pressVolumeUp();
+        assertEquals(11, device.getCurrentVolume());
+    }
+
+    @Test
+    void shouldPressVolumeDown(){
+        device.setCurrentVolume(20);
+        device.pressVolumeDown();
+        assertEquals(19, device.getCurrentVolume());
+    }
+
+
+        /*@Test
     void shouldIncreaseVolume() {
         device.setCurrentVolume(9);
         device.increaseVolume();
@@ -116,5 +135,5 @@ class RadioTest {
         device.decreaseVolume();
         assertEquals(0, device.getCurrentVolume());
     }
-
+*/
 }
