@@ -21,7 +21,7 @@ class RadioTest {
     }
 
     @Test
-    void shouldSetStationOverMaxStation() {
+    void shouldSetStationUpperMaxStation() {
         device.setCurrentStation(10);
         assertEquals(0, device.getCurrentStation());
     }
